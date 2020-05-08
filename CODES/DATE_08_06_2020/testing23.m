@@ -88,10 +88,10 @@ subplot(1,2,2);plot(1:n,diff_2);grid on;axis tight;
 Threshold_1 = 15;
 Threshold_2 = 15;
 if m<15 
-    Threshold_1 = m-1;
+    Threshold_1 = m-1;%this creates a problem of losing one circle if all are perfect circles as last one is 100% gurantee and m-1 removes it
 end
 if n<15 
-    Threshold_2 = n-1;
+    Threshold_2 = n-1;%this creates a problem of losing one circle if all are perfect circles as last one is 100% gurantee and n-1 removes it
 end
 [h,Metric_thre_1] = max(diff_1(2:Threshold_1));
 [h,Metric_thre_2] = max(diff_2(2:Threshold_2));
