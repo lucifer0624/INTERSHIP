@@ -21,7 +21,7 @@ H = rgb2gray(H);
 %using Phase code method
 [centers_1, radii_1, metric_1] = imfindcircles(H,[1 7],'ObjectPolarity','bright','Method','PhaseCode','Sensitivity',0.85);
 if(size(radii_1) < im_cno)
-    im_cno = size(radii_1);
+    [im_cno,h] = size(radii_1);
 end
 centersStrong_1 = centers_1(1:im_cno,:); 
 metricStrong_1 = metric_1(1:im_cno);
@@ -30,7 +30,7 @@ print_metric_1 = metric_1;
 %using Two Stage method
 [centers_2, radii_2, metric_2] = imfindcircles(H,[1 7],'ObjectPolarity','bright','Method','TwoStage','Sensitivity',0.85);
 if(size(radii_2) < im_cno2)
-    im_cno2 = size(radii_2);
+    [im_cno2,h] = size(radii_2);
 end
 centersStrong_2 = centers_2(1:im_cno2,:); 
 metricStrong_2 = metric_2(1:im_cno2);
@@ -88,14 +88,17 @@ subplot(1,2,2);plot(1:n,diff_2);grid on;axis tight;
 Threshold_1 = 15;
 Threshold_2 = 15;
 if m<15 
-    Threshold_1 = m;
+    Threshold_1 = m-1;
 end
 if n<15 
-    Threshold_2 = m;
+    Threshold_2 = n-1;
 end
-[h,Metric_thre_1] = max(diff_1(1:Threshold_1));
-[h,Metric_thre_2] = max(diff_2(1:Threshold_2));
+[h,Metric_thre_1] = max(diff_1(2:Threshold_1));
+[h,Metric_thre_2] = max(diff_2(2:Threshold_2));
 
+%leaving 1st one
+Metric_thre_1 = Metric_thre_1+1;
+Metric_thre_2 = Metric_thre_2+1;
 
 %Displaying Analysis Results
 
